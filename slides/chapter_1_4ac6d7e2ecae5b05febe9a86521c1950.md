@@ -36,21 +36,7 @@ key: "f3c3ec2950"
 | 3  | Julia   | Vancouver | 4       |
 | 4  | Ryan    | Toronto   | 2       |
 | 5  | Emily   | Manitoba  | 1       |
-
-
-`@script`
-Assume we have two tables one named 'Student' is the records of the student names, their city and their major id.
-
-
 ---
-## INSERT statement for views
-
-```yaml
-type: "FullSlide"
-key: "3a71488f31"
-```
-
-`@part1`
 | MajorId | MajorName  |
 |---------|------------|
 | 1       | Psychology |
@@ -60,7 +46,8 @@ key: "3a71488f31"
 
 
 `@script`
-The second table name 'Major' holding the Major id  and major names.
+Assume we have two tables one named 'Student' is the records of the student names, their city and their major id.The second table named 'Major' holding the Major id  and major names. 
+Now, I want to create a view from these two tables  which includes the Student names and their city from Student table and Major Names from the Major table.
 
 
 ---
@@ -76,7 +63,7 @@ key: "b50f11ca8d"
 
 
 `@script`
-Now, we want to create view from
+
 
 
 ---
