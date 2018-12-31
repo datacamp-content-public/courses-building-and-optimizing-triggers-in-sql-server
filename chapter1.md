@@ -40,3 +40,16 @@ This is an example exercise.
 ```{python}
 
 ```
+
+---
+
+## INSTEAD OF Triggers for DML Statements
+
+```yaml
+type: VideoExercise
+key: 8601ed4b19
+xp: 50
+```
+
+`@projector_key`
+4ac6d7e2ecae5b05febe9a86521c1950
