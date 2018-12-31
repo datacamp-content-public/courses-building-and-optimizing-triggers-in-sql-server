@@ -97,8 +97,8 @@ key: "fadf81fb51"
 | 5  | Emily   | Manitoba  | Psychology |
 ---
 ```r
-Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics') 
-```
+Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics')
+``` 
 ![](https://assets.datacamp.com/production/repositories/4363/datasets/3e649dfaa8e054f29a8783fabe615c6ae5ae8164/ErrorMsg.JPG)
 
 
@@ -115,11 +115,75 @@ key: "d605749c88"
 ```
 
 `@part1`
+```r
+CREATE TRIGGER tr_vwStudent_Major_Insert
+ on vwStudent_Major
+ instead of insert
+ as 
+ begin
+	declare @MajorId int
+	select @MajorId = MajorId
+	 from major
+	 join Inserted
+	 on Inserted.MajorName = Major.MajorName
+	 if (@MajorId is null)
+	 begin
+	 raiserror ('The MajorName is invalid',16, 1)
+	 return
+End
+	 Insert into Student(Id, StuName, City, MajorId)
+	 select Id, StuName, City, @MajorId
+	 from Inserted
+ End
+```
 
+
+`@script`
+as you see, in the CREATE TRIGGER statement we create a variable named MajorId and select the MajorId from MAjor table joining the Insereted table on the MajorName. 
+As we know from the previous course, Inserted table is a special table in SQL that contains the new data. Why we do that? because take the MajorName from Inserted table and retrieve MajorId from Major table. Then, insert that MajorId along with student‘s name and city into Student table. Also, we need to raise an error to terminate the process if the MajorName is not valid and MajorId related to it would be null. 
+Now,if I execute the INSERT statement again the row will be added to the view.
+
+
+---
+## INSTEAD OF INSERT trigger
+
+```yaml
+type: "FullSlide"
+key: "de2958e419"
+```
+
+`@part1`
+```r
+Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics')
+```
+| Id | StuName | City      | MajorName  |
+|----|---------|-----------|------------|
+| 1  | Elina   | Toronto   | English    |
+| 2  | Daniel  | Kitchener | Psychology |
+| 3  | Julia   | Vancouver | Statistics |
+| 4  | Ryan    | Toronto   | Marketing  |
+| 5  | Emily   | Manitoba  | Psychology |
+| 6  | Adrian  | London    | Statistics |
 
 
 `@script`
 
+
+
+---
+## UPDATE statement for views
+
+```yaml
+type: "FullSlide"
+key: "210b8dd332"
+```
+
+`@part1`
+
+
+
+`@script`
+What happens if we want to update the view? Let's change Daniel's city and major name to 'Montreal' and 'English'. The City column comes from the Student table and MajorName column comes from the Major table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error. Now, I change the MajorName in the view for Id number 2. So, the Update statement will only affect the Major table. The UPDATE statement will be executed without error because, the Update statement will only affect the Major table.However, SQL will change all the students in view which has the same major of ID number 2. In both cases we need to use the INSTEAD OF UPDATE trigger to correct the situation.
 
 
 ---
