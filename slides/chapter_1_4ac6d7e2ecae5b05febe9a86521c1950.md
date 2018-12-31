@@ -46,8 +46,8 @@ key: "f3c3ec2950"
 
 
 `@script`
-Assume we have two tables one named 'Student' is the records of the student names, their city and their major id.The second table named 'Major' holding the Major id  and major names. 
-Now, I want to create a view from these two tables  which includes the Student names and their city from Student table and Major Names from the Major table.
+Assume we have two tables one named 'Student' is the records of the student names, their cities and major ids.The second table named 'Major' holding the Major ids  and major names. 
+Now, I want to join these tables to create a view.
 
 
 ---
@@ -56,6 +56,62 @@ Now, I want to create a view from these two tables  which includes the Student n
 ```yaml
 type: "FullSlide"
 key: "b50f11ca8d"
+```
+
+`@part1`
+```r
+Create view vwStudent_Major
+ as
+ select Id, StuName, City, MajorName from Student as S
+ join Major as M
+ on S.MajorId = M.MajorId
+```
+| Id | StuName | City      | MajorName  |
+|----|---------|-----------|------------|
+| 1  | Elina   | Toronto   | English    |
+| 2  | Daniel  | Kitchener | Psychology |
+| 3  | Julia   | Vancouver | Statistics |
+| 4  | Ryan    | Toronto   | Marketing  |
+| 5  | Emily   | Manitoba  | Psychology |
+
+
+`@script`
+I have used CREATE VIEW statement to join the two tables and make view named'vwStudent_Major' which has the Student names and their cities from 'Student' table and Major Names from the 'Major' table.
+
+
+---
+## INSERT statement for views
+
+```yaml
+type: "FullSlide"
+key: "fadf81fb51"
+```
+
+`@part1`
+| Id | StuName | City      | MajorName  |
+|----|---------|-----------|------------|
+| 1  | Elina   | Toronto   | English    |
+| 2  | Daniel  | Kitchener | Psychology |
+| 3  | Julia   | Vancouver | Statistics |
+| 4  | Ryan    | Toronto   | Marketing  |
+| 5  | Emily   | Manitoba  | Psychology |
+---
+```r
+Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics') 
+```
+![](https://assets.datacamp.com/production/repositories/4363/datasets/3e649dfaa8e054f29a8783fabe615c6ae5ae8164/ErrorMsg.JPG)
+
+
+`@script`
+Now if I use INSERT statement to add another row to the view., Since view is the virtual table, the values we are inserting as the new student should be going to be added to the two base tables.However,when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable bacause the modification affects multiple base tables.'Now lets see how to correct the situation using INSREAD OF triggers.
+
+
+---
+## INSTEAD OF INSERT trigger
+
+```yaml
+type: "FullSlide"
+key: "d605749c88"
 ```
 
 `@part1`
