@@ -17,7 +17,7 @@ title: Delightek Founder
 
 
 `@script`
-Hi, welcome to the course! In this video, you 'll be learning about the reason we use INSTEAD OF triggers   to modify data with DML statements and what happens if we don't use them.
+Hi, welcome to the course! In this video, you 'll be learning about the reason we use INSTEAD OF triggers   to modify data with DML statements.
 
 
 ---
@@ -35,7 +35,7 @@ key: "f3c3ec2950"
 | 2  | Daniel  | Kitchener | 1       |
 | 3  | Julia   | Vancouver | 4       |
 | 4  | Ryan    | Toronto   | 2       |
-| 5  | Emily   | Manitoba  | 1       |
+| 5  | Emily   | Hamilton  | 1       |
 ---
 | MajorId | MajorName  |
 |---------|------------|
@@ -46,7 +46,7 @@ key: "f3c3ec2950"
 
 
 `@script`
-Assume we have two tables one named 'Student' is the records of the student names, their cities and major ids.The second table named 'Major' holding the Major ids  and major names. 
+Assume we have two tables. One named 'Student'has the records of the student names, their cities and major ids.The second table named 'Major'includes the Major ids and major names. 
 Now, I want to join these tables to create a view.
 
 
@@ -60,11 +60,11 @@ key: "b50f11ca8d"
 
 `@part1`
 ```r
-Create view vwStudent_Major
- as
- select Id, StuName, City, MajorName from Student as S
- join Major as M
- on S.MajorId = M.MajorId
+CREATE VIEW vwStudent_Major
+ AS
+ SELECT Id, StuName, City, MajorName from Student 
+ JOIN Major 
+ ON Student.MajorId = Major.MajorId
 ```
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
@@ -72,11 +72,11 @@ Create view vwStudent_Major
 | 2  | Daniel  | Kitchener | Psychology |
 | 3  | Julia   | Vancouver | Statistics |
 | 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Manitoba  | Psychology |
+| 5  | Emily   | Hamilton  | Psychology |
 
 
 `@script`
-I have used CREATE VIEW statement to join the two tables and make view named'vwStudent_Major' which has the Student names and their cities from 'Student' table and Major Names from the 'Major' table.
+I have used CREATE VIEW statement to join the two tables and make view named 'vwStudent_Major' which has the Student names and their cities from 'Student' table and Major Names from the 'Major' table.
 
 
 ---
@@ -94,16 +94,16 @@ key: "fadf81fb51"
 | 2  | Daniel  | Kitchener | Psychology |
 | 3  | Julia   | Vancouver | Statistics |
 | 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Manitoba  | Psychology |
+| 5  | Emily   | Hamilton  | Psychology |
 ---
 ```r
-Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics')
+INSSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'kingston', 'statistics')
 ``` 
 ![](https://assets.datacamp.com/production/repositories/4363/datasets/3e649dfaa8e054f29a8783fabe615c6ae5ae8164/ErrorMsg.JPG)
 
 
 `@script`
-Now if I use INSERT statement to add another row to the view., Since view is the virtual table, the values we are inserting as the new student should be going to be added to the two base tables.However,when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable bacause the modification affects multiple base tables.'Now lets see how to correct the situation using INSREAD OF triggers.
+Now if I use INSERT statement to add another row to the view., Since view is the virtual table, the values are going to be added to the two base tables not the view.However,when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatabl bacause the modification affects multiple base tables.'Now lets see how to correct the situation using INSREAD OF triggers.
 
 
 ---
@@ -117,31 +117,32 @@ key: "d605749c88"
 `@part1`
 ```r
 CREATE TRIGGER tr_vwStudent_Major_Insert
- on vwStudent_Major
- instead of insert
- as 
- begin
-	declare @MajorId int
-	select @MajorId = MajorId
-	 from major
-	 join Inserted
-	 on Inserted.MajorName = Major.MajorName
-	 if (@MajorId is null)
-	 begin
-	 raiserror ('The MajorName is invalid',16, 1)
-	 return
-End
-	 Insert into Student(Id, StuName, City, MajorId)
-	 select Id, StuName, City, @MajorId
-	 from Inserted
- End
+ ON vwStudent_Major
+ INSTEAD OF INSERT
+ AS
+ BEGIN
+	DECLARE @MajorId INT
+	SELECT @MajorId = MajorId
+    FROM Major
+	JOIN Inserted
+	ON Inserted.MajorName = Major.MajorName
+	
+    IF (@MajorId is null)
+	BEGIN
+	RAISERROR ('The MajorName is invalid',16, 1)
+	RETURN
+END
+	 INSERT INTO Student(Id, StuName, City, MajorId)
+	 SELECT Id, StuName, City, @MajorId
+	 FROM Inserted
+END
 ```
 
 
 `@script`
-as you see, in the CREATE TRIGGER statement we create a variable named MajorId and select the MajorId from MAjor table joining the Insereted table on the MajorName. 
-As we know from the previous course, Inserted table is a special table in SQL that contains the new data. Why we do that? because take the MajorName from Inserted table and retrieve MajorId from Major table. Then, insert that MajorId along with student‘s name and city into Student table. Also, we need to raise an error to terminate the process if the MajorName is not valid and MajorId related to it would be null. 
-Now,if I execute the INSERT statement again the row will be added to the view.
+I have used the CREATE TRIGGER statement and INSTEAD OF INSERT function. Then, create a variable named 'MajorId' by selecting the 'MajorId' from Major table joining the Insereted table on the 'MajorName' columns from both tables.
+Why we join 'Major' table with Inserted table? As we know from the previous course, Inserted table is a special table in SQL that contains the new inserted data. We join them to take the 'MajorName' from Inserted table and retrieve 'MajorId' from 'Major' table. Then, insert that 'MajorId' along with Students' Names and cities into the'Student' table. Also, we need to raise an error to terminate the process if the 'MajorName' is not valid and 'MajorId' related to it would be null. 
+Now,if I execute The INSTEAD OF INSERT trigger and INSERT statement the row will be added to the view.
 
 
 ---
