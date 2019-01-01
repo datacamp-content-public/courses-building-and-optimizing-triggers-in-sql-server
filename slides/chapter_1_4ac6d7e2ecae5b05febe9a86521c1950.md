@@ -208,7 +208,7 @@ key: "001cca68f6"
 
 `@part1`
 ```r
-update vwStudent_Major set MajorName = 'English' where Id = 2
+UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 ```
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
@@ -221,7 +221,7 @@ update vwStudent_Major set MajorName = 'English' where Id = 2
 
 
 `@script`
-Now, I change the MajorName in the view for Id number 2. So, the Update statement will only affect the Major table. The UPDATE statement will be executed without error because, the Update statement will only affect the Major table.However, SQL will change all the students in view which has the same major of Id number 2. In this case Id number 5 is also updated from Psychology to English. so, we need to create INSTEAD OF UPDATE trigger to update  or more columns in views.
+Now, I change the MajorName in the view for Id number 2. In this case, the Update statement will only affect the Major table. So, The UPDATE statement will be executed without error. However, SQL will change all the students in view which has the same major of Id number 2. Here,  Id number 5 is also updated from Psychology to English.To update the view correctly, we need to create INSTEAD OF UPDATE trigger.
 
 
 ---
@@ -234,35 +234,35 @@ key: "59a5d80ffc"
 
 `@part1`
 ```r
-create trigger tr_vwStudent_Major_Update
+CREATE TRIGGER tr_vwStudent_Major_Update
  on vwStudent_Major
- instead of update
- as 
- begin
-	if (update(MajorName))
-	begin
-		declare @MajorId int
-		select @MajorId = MajorId from Major
-		join Inserted
-		on Inserted.MajorName = Major.MajorName
+ INSTEAD OF UPDATE
+ AS 
+ BEGIN
+      IF (UPDATE(MajorName))
+      BEGIN
+	        DECLARE @MajorId INT
+	        SELECT @MajorId = MajorId FROM Major
+	        JOIN Inserted
+	        ON Inserted.MajorName = Major.MajorName
 		
-		update Student set MajorId = @MajorId from Inserted 
-		join Student
-		on Student.Id = Inserted.Id
-	End
-		if (update(City))
-		begin
-			update Student set City = Inserted.City
-			from Inserted 
-			join Student
-			on Student.Id = Inserted.Id
-		End
-End
+	        UPDATE Student SET MajorId = @MajorId FROM Inserted 
+	        JOIN Student
+	        ON Student.Id = Inserted.Id
+     END
+     IF (UPDATE(City))
+     BEGIN
+	        UPDATE Student SET City = Inserted.City
+	        FROM Inserted 
+		    JOIN Student
+			ON Student.Id = Inserted.Id
+	END
+END
 ```
 
 
 `@script`
-In order to change the MajorName for just one student in view, we actually need to change the MajorId in the Student table not to change the MajorId column in Major table. To do that, we need to join the Inserted table with the Major table to get the MajorId column from Major table.
+In order to update the 'MajorName' for just one student in view, we actually need to change the 'MajorId' in the Student table not to change the 'MajorId' column in Major table. To do that, we declare a variable exactly like the one we create for the INSTEAD OF INSERT trigger. so we first join the Inserted table with the Major table to get the 'MajorId' column from Major table. Then update the 'Student' table joining the '@MajorId' from Inserted table with 'Student' table. to update other columns like 'City' we also join the column 'City' from Inserted table with 'Student' table.
 
 
 ---
