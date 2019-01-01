@@ -220,7 +220,103 @@ update vwStudent_Major set MajorName = 'English' where Id = 2
 
 
 `@script`
-Now, I change the MajorName in the view for Id number 2. So, the Update statement will only affect the Major table. The UPDATE statement will be executed without error because, the Update statement will only affect the Major table.However, SQL will change all the students in view which has the same major of Id number 2. In this case Id number 5 is also updated from Psychology to English.
+Now, I change the MajorName in the view for Id number 2. So, the Update statement will only affect the Major table. The UPDATE statement will be executed without error because, the Update statement will only affect the Major table.However, SQL will change all the students in view which has the same major of Id number 2. In this case Id number 5 is also updated from Psychology to English. so, we need to create INSTEAD OF UPDATE trigger to update  or more columns in views.
+
+
+---
+## INSTEAD OF UPDATE trigger
+
+```yaml
+type: "FullSlide"
+key: "59a5d80ffc"
+```
+
+`@part1`
+```r
+create trigger tr_vwStudent_Major_Update
+ on vwStudent_Major
+ instead of update
+ as 
+ begin
+	if (update(MajorName))
+	begin
+		declare @MajorId int
+		select @MajorId = MajorId from Major
+		join Inserted
+		on Inserted.MajorName = Major.MajorName
+		
+		update Student set MajorId = @MajorId from Inserted 
+		join Student
+		on Student.Id = Inserted.Id
+	End
+		if (update(City))
+		begin
+			update Student set City = Inserted.City
+			from Inserted 
+			join Student
+			on Student.Id = Inserted.Id
+		End
+End
+```
+
+
+`@script`
+In order to change the MajorName for just one student in view, we actually need to change the MajorId in the Student table not to change the MajorId column in Major table. To do that, we need to join the Inserted table with the Major table to get the MajorId column from Major table.
+
+
+---
+## DELETE Statement for views
+
+```yaml
+type: "FullSlide"
+key: "25ed28ea63"
+```
+
+`@part1`
+```r
+delete from vwStudent_Major where Id in (3,4)
+```
+![](https://assets.datacamp.com/production/repositories/4363/datasets/ef81984fad1a5c62950b94b8f65e222cb54dc409/DeleteErrorMsg.JPG)
+
+
+`@script`
+If we use DELETE statement to delete a row in the view we will get the same error as INSERT and UPDATE statements. To fix it, we need to use the INSTEAD OF DELETE trigger.
+
+
+---
+## INSTEAD OF DELETE trigger
+
+```yaml
+type: "FullSlide"
+key: "5363b609d6"
+```
+
+`@part1`
+```r
+create trigger tr_vwStudent_Major_Delete
+on vwStudent_Major
+instead of delete
+as
+begin
+	delete Student
+	from Student
+	join Deleted
+	on Student.Id = Deleted. Id
+End
+```
+---
+```r
+delete from vwStudent_Major where Id in (3,4)
+```
+| Id | StuName | City      | MajorName  |
+|----|---------|-----------|------------|
+| 1  | Elina   | Toronto   | English    |
+| 2  | Daniel  | Kitchener | Psychology |
+| 3  | Emily   | Manitoba  | Psychology |
+
+
+`@script`
+In INSTEAD OF DELETE trigger we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table.
 
 
 ---
