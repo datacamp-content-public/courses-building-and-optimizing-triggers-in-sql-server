@@ -190,7 +190,7 @@ UPDATE vwStudent_Major SET City = 'Montreal' , MajorName = 'English' WHERE Id = 
 | 3  | Julia   | Vancouver | Statistics |
 | 4  | Ryan    | Toronto   | Marketing  |
 | 5  | Emily   | Hamilton  | Psychology |
-| 6  | Adrian  | London    | Statistics |
+
 ![](https://assets.datacamp.com/production/repositories/4363/datasets/5c4facf0b314722587fdfd4c6e6b0b009e53436a/UpdateErrorMsg.JPG)
 
 
@@ -213,11 +213,10 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
 | 1  | Elina   | Toronto   | English    |
-| 2  | Daniel  | Kitchener | English |
+| 2  | Daniel  | Kitchener | English    |
 | 3  | Julia   | Vancouver | Statistics |
 | 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Manitoba  | English |
-| 6  | Adrian  | London    | Statistics |
+| 5  | Emily   | Hamilton  | English    |
 
 
 `@script`
@@ -275,13 +274,13 @@ key: "25ed28ea63"
 
 `@part1`
 ```r
-delete from vwStudent_Major where Id in (3,4)
+DELETE FROM vwStudent_Major WHERE Id in (3,4)
 ```
 ![](https://assets.datacamp.com/production/repositories/4363/datasets/ef81984fad1a5c62950b94b8f65e222cb54dc409/DeleteErrorMsg.JPG)
 
 
 `@script`
-If we use DELETE statement to delete a row in the view we will get the same error as INSERT and UPDATE statements. To fix it, we need to use the INSTEAD OF DELETE trigger.
+If we use DELETE statement to delete a row or rows in the view, we will encounter the same error as INSERT and UPDATE statements. To fix it, we need to use the INSTEAD OF DELETE trigger.
 
 
 ---
@@ -294,30 +293,30 @@ key: "5363b609d6"
 
 `@part1`
 ```r
-create trigger tr_vwStudent_Major_Delete
-on vwStudent_Major
-instead of delete
-as
-begin
-	delete Student
-	from Student
-	join Deleted
-	on Student.Id = Deleted. Id
-End
+CREATE TRIGGER tr_vwStudent_Major_Delete
+ON vwStudent_Major
+INSTEAD OF DELETE
+AS
+BEGIN
+	DELETE Student
+	FROM Student
+	JOIN Deleted
+	ON Student.Id = Deleted. Id
+END
 ```
 ---
 ```r
-delete from vwStudent_Major where Id in (3,4)
+DELETE FROM vwStudent_Major WHERE Id IN (3,4)
 ```
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
 | 1  | Elina   | Toronto   | English    |
 | 2  | Daniel  | Kitchener | Psychology |
-| 3  | Emily   | Manitoba  | Psychology |
+| 5  | Emily   | Hamilton  | Psychology |
 
 
 `@script`
-In INSTEAD OF DELETE trigger we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table.
+In INSTEAD OF DELETE trigger, we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table.
 
 
 ---
