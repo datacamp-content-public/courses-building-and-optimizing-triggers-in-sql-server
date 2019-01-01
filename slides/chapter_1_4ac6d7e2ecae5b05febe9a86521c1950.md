@@ -179,11 +179,48 @@ key: "210b8dd332"
 ```
 
 `@part1`
-
+```r
+update vwStudent_Major set City = 'Montreal' , MajorName = 'English' where Id = 2
+```
+| Id | StuName | City      | MajorName  |
+|----|---------|-----------|------------|
+| 1  | Elina   | Toronto   | English    |
+| 2  | Daniel  | Kitchener | Psychology |
+| 3  | Julia   | Vancouver | Statistics |
+| 4  | Ryan    | Toronto   | Marketing  |
+| 5  | Emily   | Manitoba  | Psychology |
+| 6  | Adrian  | London    | Statistics |
+![](https://assets.datacamp.com/production/repositories/4363/datasets/5c4facf0b314722587fdfd4c6e6b0b009e53436a/UpdateErrorMsg.JPG)
 
 
 `@script`
-What happens if we want to update the view? Let's change Daniel's city and major name to 'Montreal' and 'English'. The City column comes from the Student table and MajorName column comes from the Major table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error. Now, I change the MajorName in the view for Id number 2. So, the Update statement will only affect the Major table. The UPDATE statement will be executed without error because, the Update statement will only affect the Major table.However, SQL will change all the students in view which has the same major of ID number 2. In both cases we need to use the INSTEAD OF UPDATE trigger to correct the situation.
+What happens if we want to update the view? Let's change Daniel's city and major name to 'Montreal' and 'English'. The City column comes from the Student table and MajorName column comes from the Major table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error.
+
+
+---
+## UPDATE statement for views
+
+```yaml
+type: "FullSlide"
+key: "001cca68f6"
+```
+
+`@part1`
+```r
+update vwStudent_Major set MajorName = 'English' where Id = 2
+```
+| Id | StuName | City      | MajorName  |
+|----|---------|-----------|------------|
+| 1  | Elina   | Toronto   | English    |
+| 2  | Daniel  | Kitchener | English |
+| 3  | Julia   | Vancouver | Statistics |
+| 4  | Ryan    | Toronto   | Marketing  |
+| 5  | Emily   | Manitoba  | English |
+| 6  | Adrian  | London    | Statistics |
+
+
+`@script`
+Now, I change the MajorName in the view for Id number 2. So, the Update statement will only affect the Major table. The UPDATE statement will be executed without error because, the Update statement will only affect the Major table.However, SQL will change all the students in view which has the same major of Id number 2. In this case Id number 5 is also updated from Psychology to English.
 
 
 ---
