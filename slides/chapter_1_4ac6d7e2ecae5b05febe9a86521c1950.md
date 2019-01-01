@@ -155,7 +155,7 @@ key: "de2958e419"
 
 `@part1`
 ```r
-Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics')
+INSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'Kingston', 'Statistics')
 ```
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
@@ -163,12 +163,12 @@ Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics')
 | 2  | Daniel  | Kitchener | Psychology |
 | 3  | Julia   | Vancouver | Statistics |
 | 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Manitoba  | Psychology |
-| 6  | Adrian  | London    | Statistics |
+| 5  | Emily   | Hamilton  | Psychology |
+| 6  | Adrian  | Kingston  | Statistics |
 
 
 `@script`
-
+As you see, I run the INSERT INTO statement again and the new student 'Adrian' with Id number 6 has been added to the view.
 
 
 ---
@@ -181,7 +181,7 @@ key: "210b8dd332"
 
 `@part1`
 ```r
-update vwStudent_Major set City = 'Montreal' , MajorName = 'English' where Id = 2
+UPDATE vwStudent_Major SET City = 'Montreal' , MajorName = 'English' WHERE Id = 2
 ```
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
@@ -189,13 +189,13 @@ update vwStudent_Major set City = 'Montreal' , MajorName = 'English' where Id = 
 | 2  | Daniel  | Kitchener | Psychology |
 | 3  | Julia   | Vancouver | Statistics |
 | 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Manitoba  | Psychology |
+| 5  | Emily   | Hamilton  | Psychology |
 | 6  | Adrian  | London    | Statistics |
 ![](https://assets.datacamp.com/production/repositories/4363/datasets/5c4facf0b314722587fdfd4c6e6b0b009e53436a/UpdateErrorMsg.JPG)
 
 
 `@script`
-What happens if we want to update the view? Let's change Daniel's city and major name to 'Montreal' and 'English'. The City column comes from the Student table and MajorName column comes from the Major table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error.
+What happens if we want to update the view? Let's change Daniel's city and his major name to 'Montreal' and 'English'. In the view, the 'City' column comes from the 'Student' table and 'MajorName' column comes from the 'Major' table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error as the one I got for INSERT statment.
 
 
 ---
