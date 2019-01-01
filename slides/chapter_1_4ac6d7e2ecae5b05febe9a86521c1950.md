@@ -76,7 +76,7 @@ CREATE VIEW vwStudent_Major
 
 
 `@script`
-I have used CREATE VIEW statement to join the two tables and make view named 'vwStudent_Major' which has the Student names and their cities from 'Student' table and Major Names from the 'Major' table.
+I 've used CREATE VIEW statement to join the two tables and make view named 'vwStudent_Major' which has the Student names and their cities from 'Student' table and Major Names from the 'Major' table.
 
 
 ---
@@ -103,7 +103,7 @@ INSSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'kingston', 'statistics')
 
 
 `@script`
-Now if I use INSERT statement to add another row to the view., Since view is the virtual table, the values are going to be added to the two base tables not the view.However,when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatabl bacause the modification affects multiple base tables.'Now lets see how to correct the situation using INSREAD OF triggers.
+If I use INSERT statement to add another row to the view., Since view is the virtual table, the values are going to be added to the two base tables not the view.However,when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' Now lets see how to correct the situation using INSTEAD OF triggers.
 
 
 ---
@@ -140,7 +140,7 @@ END
 
 
 `@script`
-I have used the CREATE TRIGGER statement and INSTEAD OF INSERT function. Then, create a variable named 'MajorId' by selecting the 'MajorId' from Major table joining the Insereted table on the 'MajorName' columns from both tables.
+I 've used the CREATE TRIGGER statement and INSTEAD OF INSERT function. Then, create a variable named 'MajorId' by selecting the 'MajorId' from Major table joining the Insereted table on the 'MajorName' columns from both tables.
 Why we join 'Major' table with Inserted table? As we know from the previous course, Inserted table is a special table in SQL that contains the new inserted data. We join them to take the 'MajorName' from Inserted table and retrieve 'MajorId' from 'Major' table. Then, insert that 'MajorId' along with Students' Names and cities into the'Student' table. Also, we need to raise an error to terminate the process if the 'MajorName' is not valid and 'MajorId' related to it would be null. 
 Now,if I execute The INSTEAD OF INSERT trigger and INSERT statement the row will be added to the view.
 
@@ -195,7 +195,7 @@ UPDATE vwStudent_Major SET City = 'Montreal' , MajorName = 'English' WHERE Id = 
 
 
 `@script`
-What happens if we want to update the view? Let's change Daniel's city and his major name to 'Montreal' and 'English'. In the view, the 'City' column comes from the 'Student' table and 'MajorName' column comes from the 'Major' table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error as the one I got for INSERT statment.
+What happens if we want to update the view? Let's change Daniel's city and his major name to 'Montreal' and 'English'. In the view, the 'City' column comes from the 'Student' table and 'MajorName' column comes from the 'Major' table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error as the one I got for INSERT statement.
 
 
 ---
@@ -220,7 +220,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-Now, I change the MajorName in the view for Id number 2. In this case, the Update statement will only affect the Major table. So, The UPDATE statement will be executed without error. However, SQL will change all the students in view which has the same major of Id number 2. Here,  Id number 5 is also updated from Psychology to English.To update the view correctly, we need to create INSTEAD OF UPDATE trigger.
+Now, I change the 'MajorName' in the view for Id number 2. In this case, the Update statement will only affect the Major table. So, The UPDATE statement will be executed without error. However, SQL will change all the students in view which has the same major of Id number 2. Here,  Id number 5 is also updated from Psychology to English. To update the view correctly, we need to create INSTEAD OF UPDATE trigger.
 
 
 ---
