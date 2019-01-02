@@ -153,7 +153,7 @@ END
 	 SELECT Id, StuName, City, @MajorId
 	 FROM Inserted
 END
-```
+```{{1}}
 
 
 `@script`
@@ -236,7 +236,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-What happens if I only want to change the 'MajorName' in the view for Id number 2. In this case, the Update statement will only affect the Major table and will be executed without error. However, SQL will change the major names of all the students which are the same as Id number 2. Here, the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'.
+What happens if I only want to change the 'MajorName' for Id number 2. In this case, the Update statement will only affect the Major table and will be executed without error. However, SQL will change the major names of all the students which are the same as Id number 2. Here, the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'.
 
 
 ---
@@ -277,7 +277,7 @@ END
 
 
 `@script`
-To update the 'MajorName' for just one student in the view, we need to create INSTEAD OF UPDATE trigger. To do that, we declare a variable exactly like the one we created for the INSTEAD OF INSERT trigger.  to update other columns like 'City' we also join the 'City' column from Inserted table with 'Student' table.
+To update the 'MajorName' for just one student in the view, we need to create INSTEAD OF UPDATE trigger. Then, declare a variable exactly like the one we created for the INSTEAD OF INSERT trigger.  To update other columns like 'City' we also join the 'City' column from Inserted table with the one from the 'Student' table.
 
 
 ---
