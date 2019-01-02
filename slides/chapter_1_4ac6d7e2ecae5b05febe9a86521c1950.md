@@ -278,6 +278,31 @@ In order to update the 'MajorName' for just one student in view, we actually nee
 
 
 ---
+## INSTEAD OF UPDATE trigger
+
+```yaml
+type: "FullSlide"
+key: "a29e1db042"
+```
+
+`@part1`
+```r
+UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
+```
+| Id | StuName | City      | MajorName  |
+|----|---------|-----------|------------|
+| 1  | Elina   | Toronto   | English    |
+| 2  | Daniel  | Kitchener | English    |
+| 3  | Julia   | Vancouver | Statistics |
+| 4  | Ryan    | Toronto   | Marketing  |
+| 5  | Emily   | Hamilton  | Psychology |
+
+
+`@script`
+I execute the UPDATE statement again and this time only the 'MajorName' in the second row is changed from Psychology to English and the 'MajorName' for the student with Id number 5 is still Psychology.
+
+
+---
 ## DELETE Statement for views
 
 ```yaml
@@ -320,7 +345,7 @@ END
 ```r
 DELETE FROM vwStudent_Major WHERE Id in (3,4)
 ```
-| Id | MajorName | City      | MajorId    |
+| Id | StuName | City      | MajorName    |
 |----|-----------|-----------|------------|
 | 1  | Elina     | Toronto   | English    |
 | 2  | Daniel    | Kitchener | Psychology |
@@ -328,7 +353,7 @@ DELETE FROM vwStudent_Major WHERE Id in (3,4)
 
 
 `@script`
-
+In INSTEAD OF DELETE trigger, we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table.
 
 
 ---
