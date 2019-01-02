@@ -17,7 +17,7 @@ title: Delightek Founder
 
 
 `@script`
-Hi, welcome to the course! In this video, you'll be learning about the reason we use INSTEAD OF triggers to modify data with DML statements.
+Hi, welcome to the course! In this video, you will learn about the situations we use INSTEAD OF triggers to modify data with DML statements.
 
 
 ---
@@ -29,6 +29,8 @@ key: "f3c3ec2950"
 ```
 
 `@part1`
+Student
+
 | Id | StuName | City      | MajorId |
 |----|---------|-----------|---------|
 | 1  | Elina   | Toronto   | 3       |
@@ -39,7 +41,7 @@ key: "f3c3ec2950"
 
 
 `@script`
-Assume we have two tables. One named 'Student'has the records of the student names, their cities and major ids.
+Assume we have two tables. One named 'Student'has the records of student names, their cities and major ids.
 
 
 ---
@@ -51,6 +53,8 @@ key: "58b6ae5a7e"
 ```
 
 `@part1`
+Major
+
 | MajorId | MajorName  |
 |---------|------------|
 | 1       | Psychology |
@@ -60,7 +64,7 @@ key: "58b6ae5a7e"
 
 
 `@script`
-The second table named 'Major'includes the Major ids and major names. Now, I want to join these tables to create a view.
+The second table named 'Major'includes the Major ids and major names. Now, I want to join these tow tables to create a view.
 
 
 ---
@@ -89,7 +93,7 @@ CREATE VIEW vwStudent_Major
 
 
 `@script`
-I 've used CREATE VIEW statement to join the two tables and make view named 'vwStudent_Major' which has the Student names and their cities from 'Student' table and Major Names from the 'Major' table.
+I 've used CREATE VIEW statement to join the tables and make a view. This view named 'vwStudent_Major has the Student names and their cities from the 'Student' table and Major Names from the 'Major' table.
 
 
 ---
@@ -116,7 +120,7 @@ Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics')
 
 
 `@script`
-If I use INSERT statement to add another row to the view., Since view is the virtual table, the values are going to be added to the two base tables not the view. However, when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' Now let’s see how to correct the situation using INSTEAD OF triggers.
+If I use INSERT statement to add another row to the view, the values are going to be added to the two base tables not the view. Because, views are virtual tables. When I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' Now let’s see how to correct the situation using INSTEAD OF triggers.
 
 
 ---
@@ -153,9 +157,8 @@ END
 
 
 `@script`
-I 've used the CREATE TRIGGER statement and INSTEAD OF INSERT function. Then, create a variable named 'MajorId' by selecting the 'MajorId' from Major table joining the Insereted table on the 'MajorName' columns from both tables.
-Why we join 'Major' table with Inserted table? As we know from the previous course, Inserted table is a special table in SQL that contains the new inserted data. We join them to take the 'MajorName' from Inserted table and retrieve 'MajorId' from 'Major' table. Then, insert that 'MajorId' along with Students' Names and cities into the'Student' table. Also, we need to raise an error to terminate the process if the 'MajorName' is not valid and 'MajorId' related to it would be null. 
-Now,if I execute The INSTEAD OF INSERT trigger and INSERT statement the row will be added to the view.
+In the create trigger statement, I add INSTEAD OF INSERT and create a variable named 'MajorId' by joining the 'MajorId' from 'Major' table with the 'MajorId' from Insereted table.
+Why we join the 'Major' table with the Inserted table? As we know from the previous course, Inserted table is a special table in SQL that contains the new inserted data. We join them to take the 'MajorName' from Inserted table and retrieve 'MajorId' from 'Major' table. Then, insert that 'MajorId' along with Students' Names and cities into the'Student' table. Also, we need to raise an error to terminate the process if the 'MajorName' is not valid and doesn't have a 'MajorId' related to it.
 
 
 ---
@@ -181,7 +184,7 @@ INSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'Kingston', 'Statistics')
 
 
 `@script`
-As you see, I run the INSERT INTO statement again and the new student 'Adrian' with Id number 6 has been added to the view.
+After executing the trigger, If I run the INSERT INTO statement again, the new student 'Adrian' with Id number 6 will be added to the view.
 
 
 ---
@@ -208,7 +211,7 @@ UPDATE vwStudent_Major SET City = 'Montreal' , MajorName = 'English' WHERE Id = 
 
 
 `@script`
-What happens if we want to update the view? Let's change Daniel's city and his major name to 'Montreal' and 'English'. In the view, the 'City' column comes from the 'Student' table and 'MajorName' column comes from the 'Major' table. So, like the INSERT statement the update statement is going to affect two underlying tables. If I run the query, I will get the same error as the one I got for INSERT statement.
+What happens if we want to update the view? Let's change Daniel's city to 'Montreal' and his major name to 'English'. In the view, the 'City' column comes from the 'Student' table and 'MajorName' column comes from the 'Major' table. Like the INSERT statement, the update statement is going to affect two underlying tables. If I run the query, I will get the same error.
 
 
 ---
@@ -233,7 +236,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-Now, I change the 'MajorName' in the view for Id number 2. In this case, the Update statement will only affect the Major table. So, The UPDATE statement will be executed without error. However, SQL will change all the students in view which has the same major of Id number 2. Here,  Id number 5 is also updated from Psychology to English. To update the view correctly, we need to create INSTEAD OF UPDATE trigger.
+What happens if I only want to change the 'MajorName' in the view for Id number 2. In this case, the Update statement will only affect the Major table. Because, the 'MajorName' column in the view comes from the 'Major' table. The UPDATE statement will be executed without error. However, SQL will change the major names of all the students which are the same as Id number 2. Here, the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'.
 
 
 ---
@@ -274,7 +277,7 @@ END
 
 
 `@script`
-In order to update the 'MajorName' for just one student in view, we actually need to change the 'MajorId' in the Student table not to change the 'MajorId' column in Major table. To do that, we declare a variable exactly like the one we create for the INSTEAD OF INSERT trigger. so we first join the Inserted table with the Major table to get the 'MajorId' column from Major table. Then update the 'Student' table joining the '@MajorId' from Inserted table with 'Student' table. to update other columns like 'City' we also join the column 'City' from Inserted table with 'Student' table.
+In order to update the 'MajorName' for just one student in the view, we need to create INSTEAD OF UPDATE trigger. To do that, we declare a variable exactly like the one we create for the INSTEAD OF INSERT trigger. so we first join the Inserted table with the Major table to get the 'MajorId' column from Major table. Then update the 'Student' table joining the 'MajorId' from the Inserted table with the 'Student' table. to update other columns like 'City' we also join the column 'City' from Inserted table with 'Student' table.
 
 
 ---
@@ -299,7 +302,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-I execute the UPDATE statement again and this time only the 'MajorName' in the second row is changed from Psychology to English and the 'MajorName' for the student with Id number 5 is still Psychology.
+I execute the UPDATE statement again and this time only the 'MajorName' in the second row is changed from 'Psychology' to ''English.
 
 
 ---
@@ -353,7 +356,7 @@ DELETE FROM vwStudent_Major WHERE Id in (3,4)
 
 
 `@script`
-In INSTEAD OF DELETE trigger, we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table. After executing the trigger I run the DELETE statement to delete Id numbers 3 and 4.
+In INSTEAD OF DELETE trigger, we join the 'Student' table with the Deleted table. After executing the trigger, I run the DELETE statement to delete rows with Id numbers 3 and 4.
 
 
 ---
