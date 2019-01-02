@@ -89,7 +89,7 @@ CREATE VIEW vwStudent_Major
 | 2  | Daniel  | Kitchener | Psychology |
 | 3  | Julia   | Vancouver | Statistics |
 | 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Hamilton  | Psychology |
+| 5  | Emily   | Hamilton  | Psychology |{{1}}
 
 
 `@script`
@@ -273,7 +273,7 @@ CREATE TRIGGER tr_vwStudent_Major_Update
 			ON Student.Id = Inserted.Id
 	END
 END
-```
+```{{1}}
 
 
 `@script`
@@ -352,7 +352,7 @@ DELETE FROM vwStudent_Major WHERE Id in (3,4)
 |----|-----------|-----------|------------|
 | 1  | Elina     | Toronto   | English    |
 | 2  | Daniel    | Kitchener | Psychology |
-| 5  | Emily     | Hamilton  | Psychology |
+| 5  | Emily     | Hamilton  | Psychology |{{1}}
 
 
 `@script`
