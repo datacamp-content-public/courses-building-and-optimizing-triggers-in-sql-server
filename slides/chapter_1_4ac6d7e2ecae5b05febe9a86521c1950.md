@@ -157,7 +157,7 @@ END
 
 
 `@script`
-In the create trigger statement, I add INSTEAD OF INSERT and create a variable named 'MajorId' by joining the 'MajorId' from 'Major' table with the 'MajorId' from Inserted table.
+In the CREATE TRIGGER statement, I add INSTEAD OF INSERT and create a variable named 'MajorId' by joining the 'MajorId' from 'Major' table with the 'MajorId' from Inserted table.
 As we know from the previous course, Inserted table is a special table in SQL that contains the new inserted data. We join them to take the 'MajorName' from Inserted table and retrieve 'MajorId' from 'Major' table. Then, insert that 'MajorId' along with Students' Names and cities into the'Student' table. Also, we need to raise an error to terminate the process if the 'MajorName' is not valid and doesn't have a 'MajorId' related to it.
 
 
@@ -211,7 +211,7 @@ UPDATE vwStudent_Major SET City = 'Montreal' , MajorName = 'English' WHERE Id = 
 
 
 `@script`
-Let's change Daniel's city to 'Montreal' and his major name to 'English' in the view. Like the INSERT statement, the update statement is going to affect two underlying tables. If I run the query, I will get the same error.
+Let's use the UPDATE statement to change Daniel's city to 'Montreal' and his major name to 'English' in the view. Like the INSERT statement, the update statement is going to affect two underlying tables. If I run the query, I will get the same error.
 
 
 ---
