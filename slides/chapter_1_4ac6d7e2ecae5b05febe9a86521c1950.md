@@ -17,7 +17,7 @@ title: Delightek Founder
 
 
 `@script`
-Hi, In this chapter, you will learn about the situations we use INSTEAD OF triggers to modify data with DML statements.
+Hi, in this chapter, you will learn about the situations we use INSTEAD OF triggers to modify data with DML statements.
 
 
 ---
