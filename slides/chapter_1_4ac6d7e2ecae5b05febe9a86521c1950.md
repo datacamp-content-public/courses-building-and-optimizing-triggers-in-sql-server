@@ -36,11 +36,10 @@ key: "f3c3ec2950"
 | 3  | Julia   | Vancouver | 4       |
 | 4  | Ryan    | Toronto   | 2       |
 | 5  | Emily   | Hamilton  | 1       |
----
 
 
 `@script`
-Assume we have two tables. One named 'Student'has the records of the student names, their cities and major ids.The second table named 'Major'includes the Major ids and major names. Now, I want to join these tables to create a view.
+
 
 
 ---
