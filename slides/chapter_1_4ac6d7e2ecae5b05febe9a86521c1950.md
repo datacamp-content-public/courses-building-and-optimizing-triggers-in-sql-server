@@ -356,7 +356,7 @@ DELETE FROM vwStudent_Major WHERE Id in (3,4)
 
 
 `@script`
-In INSTEAD OF DELETE trigger, we join the 'Student' table with the Deleted table. The Deleted table is a SQL special table and contains deleted data. After executing the trigger, I run the DELETE statement to delete rows with Id numbers 3 and 4.
+In INSTEAD OF DELETE trigger, we join the 'Student' table with the Deleted table. The Deleted table is a SQL special table and contains the deleted data. After executing the trigger, I run the DELETE statement to delete rows with Id numbers 3 and 4.
 
 
 ---
