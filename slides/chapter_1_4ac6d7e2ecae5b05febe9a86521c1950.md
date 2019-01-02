@@ -17,7 +17,7 @@ title: Delightek Founder
 
 
 `@script`
-Hi, welcome to the course! In this video, you 'll be learning about the reason we use INSTEAD OF triggers   to modify data with DML statements.
+Hi, welcome to the course! In this video, you'll be learning about the reason we use INSTEAD OF triggers to modify data with DML statements.
 
 
 ---
