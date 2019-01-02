@@ -353,7 +353,7 @@ DELETE FROM vwStudent_Major WHERE Id in (3,4)
 
 
 `@script`
-In INSTEAD OF DELETE trigger, we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table.
+In INSTEAD OF DELETE trigger, we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table. After executing the trigger I run the DELETE statement to delete Id numbers 3 and 4.
 
 
 ---
