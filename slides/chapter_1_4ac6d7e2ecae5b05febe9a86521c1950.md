@@ -17,7 +17,7 @@ title: Delightek Founder
 
 
 `@script`
-Hi, welcome to the course! In this video, you will learn about the situations we use INSTEAD OF triggers to modify data with DML statements.
+Hi, In this chapter, you will learn about the situations we use INSTEAD OF triggers to modify data with DML statements.
 
 
 ---
@@ -120,7 +120,7 @@ INSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'kingston', 'statistics')
 
 
 `@script`
-If I use INSERT statement to add another row to the view, the values are going to be added to the two base tables not the view. Because, views are virtual tables. When I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' Now let’s see how to correct the situation using INSTEAD OF triggers.
+Let's add another row to the view by using INSERT statement. When I run the code, SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' The reason for the error message is that the values should be added to the two base tables not the view. Because, views are virtual tables. But, the INSERT statement can't insert any rows. Let's create INSTEAD OF INSERT trigger to solve the problem.
 
 
 ---
@@ -192,33 +192,6 @@ After executing the trigger, I run the INSERT INTO statement again and the new s
 
 ```yaml
 type: "FullSlide"
-key: "210b8dd332"
-```
-
-`@part1`
-```r
-UPDATE vwStudent_Major SET City = 'Montreal' , MajorName = 'English' WHERE Id = 2
-```
-| Id | StuName | City      | MajorName  |
-|----|---------|-----------|------------|
-| 1  | Elina   | Toronto   | English    |
-| 2  | Daniel  | Kitchener | Psychology |
-| 3  | Julia   | Vancouver | Statistics |
-| 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Hamilton  | Psychology |
-
-![](https://assets.datacamp.com/production/repositories/4363/datasets/5c4facf0b314722587fdfd4c6e6b0b009e53436a/UpdateErrorMsg.JPG)
-
-
-`@script`
-Let's use the UPDATE statement to change Daniel's city to 'Montreal' and his major name to 'English' in the view. Like the INSERT statement, the update statement is going to affect two underlying tables. If I run the query, I will get the same error.
-
-
----
-## UPDATE statement for views
-
-```yaml
-type: "FullSlide"
 key: "001cca68f6"
 ```
 
@@ -236,7 +209,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-What happens if I only want to change the 'MajorName' for Id number 2? In this case, the Update statement will only affect the Major table and will be executed without error. However, SQL will change the major names of all the students which are the same as Id number 2. Here, the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'.
+Now let's see what happens if I update the 'MajorName' from 'Psychology' to 'English' for Id number 2? In this case, the Update statement will only affect the underlying Major table and will be executed without error. But, SQL will change the major names of all the students which are the same as Id number 2. For example, You see that the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'. We can correct the situation by creating INSTEAD OF UPDATE trigger.
 
 
 ---
