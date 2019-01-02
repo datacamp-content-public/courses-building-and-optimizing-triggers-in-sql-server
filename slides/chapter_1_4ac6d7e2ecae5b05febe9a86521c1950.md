@@ -93,7 +93,7 @@ CREATE VIEW vwStudent_Major
 
 
 `@script`
-I 've used CREATE VIEW statement to join the tables and make a view. This view named 'vwStudent_Major has the Student names and their cities from the 'Student' table and Major Names from the 'Major' table.
+I 've used CREATE VIEW statement to join the tables and make a view. This view named 'vwStudent_Major' has the Student names and their cities from the 'Student' table and Major Names from the 'Major' table.
 
 
 ---
@@ -106,7 +106,7 @@ key: "92998048b9"
 
 `@part1`
 ```r
-Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics') 
+INSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'kingston', 'statistics') 
 ```
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
@@ -277,7 +277,7 @@ END
 
 
 `@script`
-In order to update the 'MajorName' for just one student in the view, we need to create INSTEAD OF UPDATE trigger. To do that, we declare a variable exactly like the one we create for the INSTEAD OF INSERT trigger. so we first join the Inserted table with the Major table to get the 'MajorId' column from Major table. Then update the 'Student' table joining the 'MajorId' from the Inserted table with the 'Student' table. to update other columns like 'City' we also join the column 'City' from Inserted table with 'Student' table.
+To update the 'MajorName' for just one student in the view, we need to create INSTEAD OF UPDATE trigger. To do that, we declare a variable exactly like the one we create for the INSTEAD OF INSERT trigger. We first join the Inserted table with the Major table to get the 'MajorId' column from Major table. Then update the 'Student' table joining the 'MajorId' from the Inserted table with the 'Student' table. to update other columns like 'City' we also join the column 'City' from Inserted table with 'Student' table.
 
 
 ---
