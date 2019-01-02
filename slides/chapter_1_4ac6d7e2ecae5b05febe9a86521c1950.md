@@ -120,7 +120,7 @@ INSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'kingston', 'statistics')
 
 
 `@script`
-Let's add another row to the view by using INSERT statement. When I run the code, SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' The reason for the error message is that the values should be added to the two base tables not the view. Because, views are virtual tables. But, the INSERT statement can't insert any rows. Let's create INSTEAD OF INSERT trigger to solve the problem.
+Let's add another row to the view by using INSERT statement. When I run the code, SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' The reason for the error message is that the values should be added to the two base tables not the view. Because, views are virtual tables, the INSERT statement cannot insert any rows to the tables. Let's create INSTEAD OF INSERT trigger to solve the problem.
 
 
 ---
