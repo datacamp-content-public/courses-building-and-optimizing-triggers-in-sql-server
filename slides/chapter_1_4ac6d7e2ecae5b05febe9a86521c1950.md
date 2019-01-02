@@ -41,7 +41,7 @@ Student
 
 
 `@script`
-Assume we have two tables; One named 'Student'has the records of student names, their cities and major ids.
+Assume we have two tables; One named 'Student'has the records of the students' names, their cities and major ids.
 
 
 ---
@@ -184,7 +184,7 @@ INSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'Kingston', 'Statistics')
 
 
 `@script`
-After executing the trigger, I run the INSERT INTO statement again and the new student 'Adrian' with Id number 6 will be added to the view.
+After executing the trigger, I run the INSERT statement again and the new student 'Adrian' with Id number 6 will be added to the view.
 
 
 ---
