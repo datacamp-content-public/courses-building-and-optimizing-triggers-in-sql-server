@@ -294,7 +294,7 @@ DELETE FROM vwStudent_Major WHERE Id in (3,4)
 
 
 `@script`
-If we use DELETE statement to delete a row or rows in the view, we will encounter the same error as INSERT and UPDATE statements. To fix it, we need to use the INSTEAD OF DELETE trigger.
+If we use DELETE statement to delete a row or rows in the view, we will encounter the same error as INSERT statement. To fix it, we need to use the INSTEAD OF DELETE trigger.
 
 
 ---
