@@ -43,19 +43,6 @@ key: "f3c3ec2950"
 
 
 ---
-
-
-```yaml
-assignment: "| MajorId | MajorName  |\n|---------|------------|\n| 1       | Psychology |\n| 2       | Marketing  |\n| 3       | English    |\n| 4       | Statisitcs |"
-key: "0a1283a114"
-```
-
-`@script`
-Assume we have two tables. One named 'Student'has the records of the student names, their cities and major ids.The second table named 'Major'includes the Major ids and major names. 
-Now, I want to join these tables to create a view.
-
-
----
 ## INSERT statement for views
 
 ```yaml
@@ -126,18 +113,6 @@ key: "fadf81fb51"
 
 `@script`
 
-
-
----
-
-
-```yaml
-assignment: "```r\nINSSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'kingston', 'statistics')\n``` \n![](https://assets.datacamp.com/production/repositories/4363/datasets/3e649dfaa8e054f29a8783fabe615c6ae5ae8164/ErrorMsg.JPG)"
-key: "b71f3774dc"
-```
-
-`@script`
-If I use INSERT statement to add another row to the view., Since view is the virtual table, the values are going to be added to the two base tables not the view.However,when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' Now lets see how to correct the situation using INSTEAD OF triggers.
 
 
 ---
@@ -342,18 +317,6 @@ END
 
 `@script`
 
-
-
----
-
-
-```yaml
-assignment: "```r\nDELETE FROM vwStudent_Major WHERE Id IN (3,4)\n```\n| Id | StuName | City      | MajorName  |\n|----|---------|-----------|------------|\n| 1  | Elina   | Toronto   | English    |\n| 2  | Daniel  | Kitchener | Psychology |\n| 5  | Emily   | Hamilton  | Psychology |"
-key: "628ee5e423"
-```
-
-`@script`
-In INSTEAD OF DELETE trigger, we join the Student table with the Deleted table on the deleted ids form Deleted table and Ids in the Student table.
 
 
 ---
