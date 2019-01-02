@@ -39,7 +39,7 @@ key: "f3c3ec2950"
 
 
 `@script`
-
+Assume we have two tables. One named 'Student'has the records of the student names, their cities and major ids.
 
 
 ---
@@ -47,21 +47,20 @@ key: "f3c3ec2950"
 
 ```yaml
 type: "FullSlide"
-key: "91e9c71afd"
+key: "58b6ae5a7e"
 ```
 
 `@part1`
-| Id | StuName | City      | MajorName  |
-|----|---------|-----------|------------|
-| 1  | Elina   | Toronto   | English    |
-| 2  | Daniel  | Kitchener | Psychology |
-| 3  | Julia   | Vancouver | Statistics |
-| 4  | Ryan    | Toronto   | Marketing  |
-| 5  | Emily   | Hamilton  | Psychology |
+| MajorId | MajorName  |
+|---------|------------|
+| 1       | Psychology |
+| 2       | Marketing  |
+| 3       | English    |
+| 4       | Statistics |
 
 
 `@script`
-
+The second table named 'Major'includes the Major ids and major names. Now, I want to join these tables to create a view.
 
 
 ---
@@ -98,10 +97,13 @@ I 've used CREATE VIEW statement to join the two tables and make view named 'vwS
 
 ```yaml
 type: "FullSlide"
-key: "fadf81fb51"
+key: "92998048b9"
 ```
 
 `@part1`
+```r
+Insert into vwStudent_Major values (6, 'Adrian', 'kingston', 'statistics') 
+```
 | Id | StuName | City      | MajorName  |
 |----|---------|-----------|------------|
 | 1  | Elina   | Toronto   | English    |
@@ -110,9 +112,11 @@ key: "fadf81fb51"
 | 4  | Ryan    | Toronto   | Marketing  |
 | 5  | Emily   | Hamilton  | Psychology |
 
+![](https://assets.datacamp.com/production/repositories/4363/datasets/3e649dfaa8e054f29a8783fabe615c6ae5ae8164/ErrorMsg.JPG)
+
 
 `@script`
-
+If I use INSERT statement to add another row to the view., Since view is the virtual table, the values are going to be added to the two base tables not the view. However, when I run the code SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' Now let’s see how to correct the situation using INSTEAD OF triggers.
 
 
 ---
