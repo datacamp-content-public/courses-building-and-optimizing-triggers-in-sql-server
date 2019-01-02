@@ -236,7 +236,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-What happens if I only want to change the 'MajorName' for Id number 2. In this case, the Update statement will only affect the Major table and will be executed without error. However, SQL will change the major names of all the students which are the same as Id number 2. Here, the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'.
+What happens if I only want to change the 'MajorName' for Id number 2? In this case, the Update statement will only affect the Major table and will be executed without error. However, SQL will change the major names of all the students which are the same as Id number 2. Here, the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'.
 
 
 ---
