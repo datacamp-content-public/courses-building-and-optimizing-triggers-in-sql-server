@@ -209,7 +209,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-Now let's see what happens if I update the 'MajorName' from 'Psychology' to 'English' for Id number 2? In this case, the Update statement will only affect the underlying Major table and will be executed without error. But, SQL will change the major names of all the students which are the same as Id number 2. For example, You see that the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'. We can correct the situation by creating INSTEAD OF UPDATE trigger.
+Now, let's see what happens if I update the 'MajorName' from 'Psychology' to 'English' for Id number 2? In this case, the Update statement will only affect the underlying Major table and will be executed without error. But, SQL will change the major names of all the students which are the same as Id number 2. For example, You see that the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'. We can correct the situation by creating INSTEAD OF UPDATE trigger.
 
 
 ---
