@@ -317,6 +317,14 @@ BEGIN
 	ON Student.Id = Deleted. Id
 END
 ```
+```r
+DELETE FROM vwStudent_Major WHERE Id in (3,4)
+```
+| Id | MajorName | City      | MajorId    |
+|----|-----------|-----------|------------|
+| 1  | Elina     | Toronto   | English    |
+| 2  | Daniel    | Kitchener | Psychology |
+| 5  | Emily     | Hamilton  | Psychology |
 
 
 `@script`
