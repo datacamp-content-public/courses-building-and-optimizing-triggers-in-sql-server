@@ -3,7 +3,7 @@ title: 'Chapter Title Here'
 description: 'Chapter description goes here.'
 ---
 
-## INSTEAD OF Triggers for DML Statements
+## INSTEAD OF Triggers vs DML Statements
 
 ```yaml
 type: VideoExercise

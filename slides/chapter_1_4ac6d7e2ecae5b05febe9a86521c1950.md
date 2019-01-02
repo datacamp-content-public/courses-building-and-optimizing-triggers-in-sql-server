@@ -3,7 +3,7 @@ title: Insert title here
 key: 4ac6d7e2ecae5b05febe9a86521c1950
 
 ---
-## INSTEAD OF Triggers for DML Statements
+## INSTEAD OF Triggers vs DML Statements
 
 ```yaml
 type: "TitleSlide"
