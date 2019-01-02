@@ -64,7 +64,7 @@ Major
 
 
 `@script`
-The second table named 'Major'includes the Major ids and major names. Now, I want to join these two tables to create a view.
+The second table named 'Major' includes the Major ids and major names. Now, I want to join these two tables to create a view.
 
 
 ---
