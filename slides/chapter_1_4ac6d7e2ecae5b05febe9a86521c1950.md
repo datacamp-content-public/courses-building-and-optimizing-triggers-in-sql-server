@@ -64,7 +64,7 @@ Major
 
 
 `@script`
-The second table named 'Major' includes the Major ids and major names. Now, I want to join these two tables to create a view.
+The second table named 'Major' includes the major ids and major names. Now, I want to join these two tables to create a view.
 
 
 ---
@@ -93,7 +93,7 @@ CREATE VIEW vwStudent_Major
 
 
 `@script`
-I 've used CREATE VIEW statement to join the tables and make a view. This view named 'vwStudent_Major' has the Student names and their cities from the 'Student' table and Major Names from the 'Major' table.
+I 've used CREATE VIEW statement to join the tables and make a view. This view named 'vwStudent_Major' has the student names and their cities from the 'Student' table and major names from the 'Major' table.
 
 
 ---
@@ -120,7 +120,7 @@ INSERT INTO vwStudent_Major VALUES (6, 'Adrian', 'kingston', 'statistics')
 
 
 `@script`
-Let's add another row to the view by using INSERT statement. When I run the code, SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' The reason for the error message is that the values should be added to the two base tables not the view. Because, views are virtual tables, the INSERT statement cannot insert any rows to the tables. Let's create INSTEAD OF INSERT trigger to solve the problem.
+Let's add a new row to the view by using INSERT statement. When I run the code, SQL will throw an error stating 'View or function 'vwStudent_Major' is not updatable because the modification affects multiple base tables.' The reason for the error message is that the values should be added to the two base tables, not the view. Because, views are virtual tables, the INSERT statement cannot insert any rows. Let's create INSTEAD OF INSERT trigger to solve the problem.
 
 
 ---
@@ -209,7 +209,7 @@ UPDATE vwStudent_Major SET MajorName = 'English' where Id = 2
 
 
 `@script`
-Now, let's see what happens if I update the 'MajorName' from 'Psychology' to 'English' for Id number 2? In this case, the Update statement will only affect the underlying Major table and will be executed without error. But, SQL will change the major names of all the students which are the same as Id number 2. For example, You see that the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'. We can correct the situation by creating INSTEAD OF UPDATE trigger.
+Now, let's see what happens if I update the 'MajorName' from 'Psychology' to 'English' for Id number 2? In this case, the Update statement will only affect the underlying 'Major' table and will be executed without error. But, SQL will change the major names of all the students which are the same as Id number 2. For example, You see that the 'MajorName' of  Id number 5 is also updated from 'Psychology' to 'English'. We can correct the situation by creating INSTEAD OF UPDATE trigger.
 
 
 ---
